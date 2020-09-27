@@ -309,7 +309,7 @@ public class URIUtils {
         if (uri == null) {
             return null;
         }
-        if (route.getProxyHost() != null && !route.isTunnelled()) {
+        if (route.getProxyHost() != null && !route.isTunnelled()) {// tunnelled：挖洞
             // Make sure the request URI is absolute
             return uri.isAbsolute()
                     ? rewriteURI(uri)

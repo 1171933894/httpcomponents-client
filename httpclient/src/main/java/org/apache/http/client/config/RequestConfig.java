@@ -70,7 +70,7 @@ public class RequestConfig implements Cloneable {
     private final InetAddress localAddress;
     private final boolean staleConnectionCheckEnabled;
     private final String cookieSpec;
-    private final boolean redirectsEnabled;
+    private final boolean redirectsEnabled;// 允许重定向
     private final boolean relativeRedirectsAllowed;
     private final boolean circularRedirectsAllowed;
     private final int maxRedirects;

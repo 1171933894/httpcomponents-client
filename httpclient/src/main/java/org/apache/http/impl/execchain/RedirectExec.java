@@ -56,7 +56,7 @@ import org.apache.http.util.EntityUtils;
 
 /**
  * Request executor in the request execution chain that is responsible
- * for handling of request redirects.
+ * for handling of request redirects. // 处理请求重定向
  * <p>
  * Further responsibilities such as communication with the opposite
  * endpoint is delegated to the next executor in the request execution
@@ -106,7 +106,7 @@ public class RedirectExec implements ClientExecChain {
         final int maxRedirects = config.getMaxRedirects() > 0 ? config.getMaxRedirects() : 50;
         HttpRoute currentRoute = route;
         HttpRequestWrapper currentRequest = request;
-        for (int redirectCount = 0;;) {
+        for (int redirectCount = 0;;) {// 使用for循环来实现重定向，重定向次数为maxRedirects
             final CloseableHttpResponse response = requestExecutor.execute(
                     currentRoute, currentRequest, context, execAware);
             try {
