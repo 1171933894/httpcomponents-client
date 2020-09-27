@@ -289,6 +289,7 @@ public class MainClientExec implements ClientExecChain {
                 response = requestExecutor.execute(request, managedConn, context);
 
                 // The connection is in or can be brought to a re-usable state.
+                // 根据配置的策略，判断是否保持连接，永久还是一段时长
                 if (reuseStrategy.keepAlive(response, context)) {
                     // Set the idle duration of this connection
                     final long duration = keepAliveStrategy.getKeepAliveDuration(response, context);
@@ -348,6 +349,8 @@ public class MainClientExec implements ClientExecChain {
             }
 
             // check for entity, release connection if possible
+            // 判断是否读取了全部的响应，如果是，则释放连接回连接池，
+            // 否则，也要返回连接，以便后面继续从流中读取响应。
             final HttpEntity entity = response.getEntity();
             if (entity == null || !entity.isStreaming()) {
                 // connection not needed and (assumed to be) in re-usable state
