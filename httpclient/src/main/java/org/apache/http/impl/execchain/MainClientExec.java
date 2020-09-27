@@ -285,6 +285,7 @@ public class MainClientExec implements ClientExecChain {
                 }
 
                 context.setAttribute(HttpCoreContext.HTTP_REQUEST, request);
+                // 和服务器具体交互，发送请求头，如果有响应，再接收响应
                 response = requestExecutor.execute(request, managedConn, context);
 
                 // The connection is in or can be brought to a re-usable state.
