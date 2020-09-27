@@ -168,11 +168,17 @@ public class MainClientExec implements ClientExecChain {
         }
 
         if (request instanceof HttpEntityEnclosingRequest) {
-            RequestEntityProxy.enhance((HttpEntityEnclosingRequest) request);
+            RequestEntityProxy.enhance((HttpEntityEnclosingRequest) request);// 大概一看，没什么重要内容
         }
 
+        // userToken后面作为state，用来从连接池中获取连接的时候使用，默认是null。
+        // 如果设置了值，会设置到连接中，再次获取的时候，则优先取status相等的连接
         Object userToken = context.getUserToken();
 
+        // ConnectionRequest用来获取HttpClientConnection
+        // 为每一个route设置一个连接池，大小可以配置，默认为2
+        // 从route连接池获取一个连接，优先取status等于userToken的。
+        // 这里没有实质的操作，只是创建一个ConnectionRequest，并将获取连接的操作封装在ConnectionRequest中。
         final ConnectionRequest connRequest = connManager.requestConnection(route, userToken);
         if (execAware != null) {
             if (execAware.isAborted()) {
