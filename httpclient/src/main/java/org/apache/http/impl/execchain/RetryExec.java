@@ -50,7 +50,7 @@ import org.apache.http.util.Args;
  * for making a decision whether a request failed due to an I/O error
  * should be re-executed.
  * <p>
- * Further responsibilities such as communication with the opposite
+ * Further responsibilities such as communication（通讯）with the opposite
  * endpoint is delegated to the next executor in the request execution
  * chain.
  * </p>

@@ -59,12 +59,12 @@ public class DefaultHttpRequestRetryHandler implements HttpRequestRetryHandler {
     public static final DefaultHttpRequestRetryHandler INSTANCE = new DefaultHttpRequestRetryHandler();
 
     /** the number of times a method will be retried */
-    private final int retryCount;
+    private final int retryCount;// 重试次数
 
     /** Whether or not methods that have successfully sent their request will be retried */
     private final boolean requestSentRetryEnabled;
 
-    private final Set<Class<? extends IOException>> nonRetriableClasses;
+    private final Set<Class<? extends IOException>> nonRetriableClasses;// 不进行重试的IOException集合，比如UnknownHostException
 
     /**
      * Create the request retry handler using the specified IOException classes

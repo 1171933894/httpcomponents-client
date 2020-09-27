@@ -32,7 +32,7 @@ import java.io.IOException;
 import org.apache.http.protocol.HttpContext;
 
 /**
- * A handler for determining if an HttpRequest should be retried after a
+ * A handler for determining（决定）if an HttpRequest should be retried after a
  * recoverable exception during execution.
  * <p>
  * Implementations of this interface must be thread-safe. Access to shared
