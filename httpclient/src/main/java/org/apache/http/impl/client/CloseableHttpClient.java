@@ -222,13 +222,13 @@ public abstract class CloseableHttpClient implements HttpClient, Closeable {
         try {
             final T result = responseHandler.handleResponse(response);
             final HttpEntity entity = response.getEntity();
-            EntityUtils.consume(entity);
+            EntityUtils.consume(entity);// 关闭IO流
             return result;
         } catch (final ClientProtocolException t) {
             // Try to salvage the underlying connection in case of a protocol exception
             final HttpEntity entity = response.getEntity();
             try {
-                EntityUtils.consume(entity);
+                EntityUtils.consume(entity);// 关闭IO流【consume：消耗】
             } catch (final Exception t2) {
                 // Log this exception. The original exception is more
                 // important and will be thrown to the caller.

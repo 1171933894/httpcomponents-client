@@ -45,29 +45,29 @@ import org.apache.http.util.LangUtils;
  *
  * @since 4.0
  */
-@Contract(threading = ThreadingBehavior.IMMUTABLE)
+@Contract(threading = ThreadingBehavior.IMMUTABLE)// 表示HttpRoute对象是immutable的
 public final class HttpRoute implements RouteInfo, Cloneable {
 
     /** The target host to connect to. */
-    private final HttpHost targetHost;
+    private final HttpHost targetHost;// 目标主机
 
     /**
      * The local address to connect from.
      * {@code null} indicates that the default should be used.
      */
-    private final InetAddress localAddress;
+    private final InetAddress localAddress;// 本地地址
 
     /** The proxy servers, if any. Never null. */
-    private final List<HttpHost> proxyChain;
+    private final List<HttpHost> proxyChain;// 代理链
 
     /** Whether the the route is tunnelled through the proxy. */
-    private final TunnelType tunnelled;
+    private final TunnelType tunnelled;// 是否tunnulled（tunnelled：挖洞的）
 
     /** Whether the route is layered. */
-    private final LayerType layered;
+    private final LayerType layered;// 是否layered（layered：分层的）
 
     /** Whether the route is (supposed to be) secure. */
-    private final boolean secure;
+    private final boolean secure;// 是否是安全路由
 
     private HttpRoute(final HttpHost target, final InetAddress local, final List<HttpHost> proxies,
                      final boolean secure, final TunnelType tunnelled, final LayerType layered) {

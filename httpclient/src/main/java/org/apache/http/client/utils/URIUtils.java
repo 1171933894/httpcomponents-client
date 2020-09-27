@@ -407,7 +407,7 @@ public class URIUtils {
     }
 
     /**
-     * Extracts target host from the given {@link URI}.
+     * Extracts（提取）target host from the given {@link URI}.
      *
      * @param uri
      * @return the target host if the URI is absolute or {@code null} if the URI is

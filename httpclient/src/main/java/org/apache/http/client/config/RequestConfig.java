@@ -39,13 +39,34 @@ import org.apache.http.annotation.ThreadingBehavior;
  *  The default setting for stale connection checking changed
  *  to false, and the feature was deprecated starting with version 4.4.
  */
-@Contract(threading = ThreadingBehavior.IMMUTABLE)
+
+/**
+ * 使用示例，eg：
+ * 1）超时相关配置
+ * 		//全部设置为10秒
+ * 		RequestConfig requestConfig = RequestConfig.custom()
+ * 				.setSocketTimeout(10000)
+ * 				.setConnectTimeout(10000)
+ * 				.setConnectionRequestTimeout(10000)
+ * 				.build();
+ * 		//配置httpClient
+ * 		HttpClient httpClient = HttpClients.custom()
+ * 				.setDefaultRequestConfig(requestConfig)
+ * 				.build();
+ * 2）代理配置
+ * 		RequestConfig defaultRequestConfig = RequestConfig.custom()
+ * 				.setProxy(new HttpHost("171.97.67.160", 3128, null))
+ * 				.build();   //添加代理
+ * 		HttpClient httpClient = HttpClients.custom().
+ * 				setDefaultRequestConfig(defaultRequestConfig).build();  //配置httpClient
+ */
+@Contract(threading = ThreadingBehavior.IMMUTABLE/*IMMUTABLE：不可变的*/)
 public class RequestConfig implements Cloneable {
 
     public static final RequestConfig DEFAULT = new Builder().build();
 
     private final boolean expectContinueEnabled;
-    private final HttpHost proxy;
+    private final HttpHost proxy;// 代理设置
     private final InetAddress localAddress;
     private final boolean staleConnectionCheckEnabled;
     private final String cookieSpec;
@@ -56,9 +77,9 @@ public class RequestConfig implements Cloneable {
     private final boolean authenticationEnabled;
     private final Collection<String> targetPreferredAuthSchemes;
     private final Collection<String> proxyPreferredAuthSchemes;
-    private final int connectionRequestTimeout;
-    private final int connectTimeout;
-    private final int socketTimeout;
+    private final int connectionRequestTimeout;// 连接池获取到连接的超时时间
+    private final int connectTimeout;// 建立连接的超时
+    private final int socketTimeout;// 获取数据的超时时间
     private final boolean contentCompressionEnabled;
     private final boolean normalizeUri;
 

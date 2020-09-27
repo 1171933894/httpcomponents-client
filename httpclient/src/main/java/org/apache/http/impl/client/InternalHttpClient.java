@@ -69,7 +69,7 @@ import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.Args;
 
 /**
- * Internal class.
+ * Internal（内部）class.
  *
  * @since 4.3
  */

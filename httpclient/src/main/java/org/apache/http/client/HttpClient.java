@@ -39,7 +39,7 @@ import java.io.IOException;
 
 /**
  * This interface represents only the most basic contract for HTTP request
- * execution. It imposes no restrictions or particular details on the request
+ * execution. It imposes（强加）no restrictions or particular details on the request
  * execution process and leaves the specifics of state management,
  * authentication and redirect handling up to individual implementations.
  *

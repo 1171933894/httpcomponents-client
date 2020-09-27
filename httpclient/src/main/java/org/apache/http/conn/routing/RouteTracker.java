@@ -39,6 +39,7 @@ import org.apache.http.util.LangUtils;
  *
  * @since 4.0
  */
+// RouteTracker的字段和HttpRoute几乎相同，但RouteTracker提供了一些修改字段值得方法
 public final class RouteTracker implements RouteInfo, Cloneable {
 
     /** The target host to connect to. */
