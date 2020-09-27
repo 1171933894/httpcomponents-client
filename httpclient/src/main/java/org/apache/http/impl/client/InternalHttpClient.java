@@ -182,6 +182,7 @@ class InternalHttpClient extends CloseableHttpClient implements Configurable {
             }
             setupContext(localcontext);
             final HttpRoute route = determineRoute(target, wrapper, localcontext);
+            // 开始调用请求执行链
             return this.execChain.execute(route, wrapper, localcontext, execAware);
         } catch (final HttpException httpException) {
             throw new ClientProtocolException(httpException);

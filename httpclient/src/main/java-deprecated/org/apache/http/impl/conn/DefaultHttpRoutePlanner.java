@@ -64,7 +64,7 @@ import org.apache.http.util.Asserts;
  */
 @Contract(threading = ThreadingBehavior.SAFE)
 @Deprecated
-public class DefaultHttpRoutePlanner implements HttpRoutePlanner {
+public class DefaultHttpRoutePlanner implements HttpRoutePlanner {// planner：策划人
 
     /** The scheme registry. */
     protected final SchemeRegistry schemeRegistry; // class is @Contract(threading = ThreadingBehavior.SAFE)

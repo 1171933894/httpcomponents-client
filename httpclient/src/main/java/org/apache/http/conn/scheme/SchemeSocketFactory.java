@@ -36,7 +36,7 @@ import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.params.HttpParams;
 
 /**
- * A factory for creating, initializing and connecting sockets. The factory encapsulates the logic
+ * A factory for creating, initializing and connecting sockets. The factory encapsulates（封装）the logic
  * for establishing a socket connection.
  *
  * @since 4.1

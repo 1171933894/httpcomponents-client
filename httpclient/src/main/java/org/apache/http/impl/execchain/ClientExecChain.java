@@ -52,7 +52,7 @@ import org.apache.http.conn.routing.HttpRoute;
 public interface ClientExecChain {
 
     /**
-     * Executes th request either by transmitting it to the target server or
+     * Executes th request either by transmitting（传送）it to the target server or
      * by passing it onto the next executor in the request execution chain.
      *
      * @param route connection route.
