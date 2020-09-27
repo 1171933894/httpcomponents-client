@@ -193,6 +193,9 @@ public class MainClientExec implements ClientExecChain {
         final HttpClientConnection managedConn;
         try {
             final int timeout = config.getConnectionRequestTimeout();
+            // 获取连接，这里才执行从连接池中阻塞获取连接的操作，并设置超时时间。
+            // 这里返回的connection，不一定是有效的socket连接，长短连接处理方式不同。
+            // 如果连接没有打开或者不可用，后面会重新建立socket连接。
             managedConn = connRequest.get(timeout > 0 ? timeout : 0, TimeUnit.MILLISECONDS);
         } catch(final InterruptedException interrupted) {
             Thread.currentThread().interrupt();
@@ -205,14 +208,19 @@ public class MainClientExec implements ClientExecChain {
             throw new RequestAbortedException("Request execution failed", cause);
         }
 
+        // 将连接加入上下文中，暴露连接。context就是一个大容器，收藏各种东西，如果觉得有什么资源是需要在别的地方用到的，那就放入context吧
         context.setAttribute(HttpCoreContext.HTTP_CONNECTION, managedConn);
 
+        // 是否检查连接的有效性。如果检查不可用，就关闭连接。对于关闭的连接，后面会从三次握手开始，重新建立socket连接。
+        // 如果配置检查，就相当于一个悲观锁，每次请求都会消耗最多30ms来检测，影响性能。4.4版本开始就过时了。
         if (config.isStaleConnectionCheckEnabled()) {
-            // validate connection
+            // validate connection，首先判断连接是否是打开的
             if (managedConn.isOpen()) {
                 this.log.debug("Stale connection check");
+                // 如果是打开的，进一步判断是否可用
                 if (managedConn.isStale()) {
                     this.log.debug("Stale connection detected");
+                    // 不可用的时候，需要关闭连接，后面再重新建立连接
                     managedConn.close();
                 }
             }
@@ -226,7 +234,7 @@ public class MainClientExec implements ClientExecChain {
 
             HttpResponse response;
             for (int execCount = 1;; execCount++) {
-
+                // 请求是否幂等的，如果不是，则不能retry，抛异常
                 if (execCount > 1 && !RequestEntityProxy.isRepeatable(request)) {
                     throw new NonRepeatableRequestException("Cannot retry request " +
                             "with a non-repeatable request entity.");
@@ -236,9 +244,11 @@ public class MainClientExec implements ClientExecChain {
                     throw new RequestAbortedException("Request aborted");
                 }
 
+                // 如果连接没有打开，即连接使用的socket为null，则重新建立连接。
                 if (!managedConn.isOpen()) {
                     this.log.debug("Opening connection " + route);
                     try {
+                        // 建立socket连接。遍历地址集，成功建立socket连接，就返回，封装在connection中
                         establishRoute(proxyAuthState, managedConn, route, request, context);
                     } catch (final TunnelRefusedException ex) {
                         if (this.log.isDebugEnabled()) {
