@@ -33,7 +33,7 @@ import org.apache.http.HttpRequest;
 import org.apache.http.protocol.HttpContext;
 
 /**
- * Encapsulates logic to compute a {@link HttpRoute} to a target host.
+ * Encapsulates（封装）logic to compute a {@link HttpRoute} to a target host.
  * Implementations may for example be based on parameters, or on the
  * standard Java system properties.
  * <p>

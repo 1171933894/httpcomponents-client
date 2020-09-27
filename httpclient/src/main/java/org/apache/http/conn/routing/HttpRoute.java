@@ -232,7 +232,7 @@ public final class HttpRoute implements RouteInfo, Cloneable {
 
     @Override
     public final HttpHost getHopTarget(final int hop) {
-        Args.notNegative(hop, "Hop index");
+        Args.notNegative(hop, "Hop index");// hop：跳
         final int hopcount = getHopCount();
         Args.check(hop < hopcount, "Hop index exceeds tracked route length");
         return hop < hopcount - 1 ? this.proxyChain.get(hop) : this.targetHost;
