@@ -45,6 +45,7 @@ import org.apache.http.util.LangUtils;
  *
  * @since 4.0
  */
+// 一个final类，用来表示目标服务器（ip+端口）
 @Contract(threading = ThreadingBehavior.IMMUTABLE)// 表示HttpRoute对象是immutable的
 public final class HttpRoute implements RouteInfo, Cloneable {
 

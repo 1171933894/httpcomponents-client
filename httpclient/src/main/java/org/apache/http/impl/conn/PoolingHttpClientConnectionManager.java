@@ -178,6 +178,7 @@ public class PoolingHttpClientConnectionManager
         final long timeToLive, final TimeUnit timeUnit) {
         super();
         this.configData = new ConfigData();
+        // 在这里设置了默认连接数，需要注意，然后默认使用了连接池
         this.pool = new CPool(new InternalConnectionFactory(
                 this.configData, connFactory), 2, 20, timeToLive, timeUnit);
         this.pool.setValidateAfterInactivity(2000);
