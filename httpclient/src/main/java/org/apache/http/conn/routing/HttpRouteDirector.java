@@ -28,7 +28,7 @@
 package org.apache.http.conn.routing;
 
 /**
- * Provides directions on establishing a route.
+ * Provides directions（指示）on establishing a route.
  * Implementations of this interface compare a planned route with
  * a tracked route and indicate the next step required.
  *

@@ -228,7 +228,7 @@ public final class HttpRoute implements RouteInfo, Cloneable {
     @Override
     public final int getHopCount() {
         return proxyChain != null ? proxyChain.size() + 1 : 1;
-    }
+    }// 跳转计数
 
     @Override
     public final HttpHost getHopTarget(final int hop) {

@@ -948,6 +948,9 @@ public class HttpClientBuilder {
     public CloseableHttpClient build() {
         // Create main request executor
         // We copy the instance fields to avoid changing them, and rename to avoid accidental use of the wrong version
+        /**
+         * HttpClient可以在一个共同顶级域名下的子域名的时候，可以使用公共后缀列表来保证SSL证书中的通配符不会被误用。PublicSuffixMatcher类从一个文件加载公共后缀列表；DefaultHostnameVerifier类提供公共后缀验证；下文是演示代码。
+         */
         PublicSuffixMatcher publicSuffixMatcherCopy = this.publicSuffixMatcher;
         if (publicSuffixMatcherCopy == null) {
             publicSuffixMatcherCopy = PublicSuffixMatcherLoader.getDefault();
@@ -964,7 +967,7 @@ public class HttpClientBuilder {
                 final String[] supportedProtocols = systemProperties ? split(
                         System.getProperty("https.protocols")) : null;
                 final String[] supportedCipherSuites = systemProperties ? split(
-                        System.getProperty("https.cipherSuites")) : null;
+                        System.getProperty("https.cipherSuites")) : null;// cipher：密码
                 HostnameVerifier hostnameVerifierCopy = this.hostnameVerifier;
                 if (hostnameVerifierCopy == null) {
                     hostnameVerifierCopy = new DefaultHostnameVerifier(publicSuffixMatcherCopy);

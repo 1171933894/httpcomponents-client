@@ -282,6 +282,7 @@ public class PoolingHttpClientConnectionManager
                 final HttpClientConnection conn = leaseConnection(future, timeout, timeUnit);
                 if (conn.isOpen()) {
                     final HttpHost host;
+                    // 处理代理逻辑
                     if (route.getProxyHost() != null) {
                         host = route.getProxyHost();
                     } else {
@@ -368,6 +369,7 @@ public class PoolingHttpClientConnectionManager
             conn = entry.getConnection();
         }
         final HttpHost host;
+        // 处理代理逻辑
         if (route.getProxyHost() != null) {
             host = route.getProxyHost();
         } else {
